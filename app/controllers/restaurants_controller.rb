@@ -1,5 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /restaurants
   # GET /restaurants.json
@@ -24,7 +26,7 @@ class RestaurantsController < ApplicationController
   # POST /restaurants
   # POST /restaurants.json
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant = current_user.restaurants.create(restaurant_params)
 
     respond_to do |format|
       if @restaurant.save
@@ -65,6 +67,14 @@ class RestaurantsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
       @restaurant = Restaurant.find(params[:id])
+    end
+
+    def correct_user
+       @restaurant = Place.find(params[:id])
+
+       if @restaurant.user != current_user
+        return render :text => 'Not Allowed', :status => :forbidden
+       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
