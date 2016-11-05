@@ -6,4 +6,9 @@ RSpec.describe Restaurant, type: :model do
     restaurant.valid?
     expect(restaurant.errors.messages[:name]).to include "can't be blank"
   end
+
+#   it 'restaurant has a user_id' do
+#   	user = User.create
+#   	restaurant = Restaurant.create
+#   end
 end

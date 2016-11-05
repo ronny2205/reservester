@@ -23,8 +23,13 @@ RSpec.describe RestaurantsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Restaurant. As you add validations to Restaurant, be sure to
   # adjust the attributes here as well.
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    # skip("Add a hash of attributes valid for your model")
+    {name: "res1",
+    address: "1 st",
+    phone: "123"
+     }
   }
 
   let(:invalid_attributes) {
@@ -38,7 +43,9 @@ RSpec.describe RestaurantsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all restaurants as @restaurants" do
-      restaurant = Restaurant.create! valid_attributes
+      user = User.create!(name: "one", email: "e@e.com", password: "12355555", password_confirmation: "12355555") 
+   
+      restaurant = user.restaurants.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(assigns(:restaurants)).to eq([restaurant])
     end
@@ -46,7 +53,8 @@ RSpec.describe RestaurantsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested restaurant as @restaurant" do
-      restaurant = Restaurant.create! valid_attributes
+      user = User.create!(name: "one", email: "e@e.com", password: "12355555", password_confirmation: "12355555") 
+      restaurant = user.restaurants.create! valid_attributes
       get :show, params: {id: restaurant.to_param}, session: valid_session
       expect(assigns(:restaurant)).to eq(restaurant)
     end
