@@ -70,7 +70,7 @@ class RestaurantsController < ApplicationController
     end
 
     def correct_user
-       @restaurant = Place.find(params[:id])
+       @restaurant = Restaurant.find(params[:id])
 
        if @restaurant.user != current_user
         return render :text => 'Not Allowed', :status => :forbidden
