@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030221658) do
+ActiveRecord::Schema.define(version: 20161106143628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "reservations", force: :cascade do |t|
+    t.string   "email"
+    t.date     "date"
+    t.time     "time"
+    t.text     "message"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["restaurant_id"], name: "index_reservations_on_restaurant_id", using: :btree
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"

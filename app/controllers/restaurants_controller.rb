@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+    @reservation = Reservation.new
   end
 
   # GET /restaurants/new
@@ -33,7 +34,7 @@ class RestaurantsController < ApplicationController
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant }
       else
-        format.html { render :new }
+        format.html { redirect_to @restaurant, notice: 'Restaurant was not created.' }
         format.json { render json: @restaurant.errors, status: :unprocessable_entity }
       end
     end
